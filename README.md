@@ -12,19 +12,9 @@ A clean, safe macOS command-line tool for completely uninstalling non-Apple appl
 - **Comprehensive Logging** - Optional logging of all removal operations
 
 ## Installation
-
-### Requirements
-
-- macOS 14.0 or later
-- Swift 6.0 or later (for building from source)
-
-### Build from Source
-
 ```bash
-git clone <repository-url>
-cd nnuninstaller
-swift build -c release
-cp .build/release/nnuninstaller /usr/local/bin/
+brew tap nikolainobadi/nntools
+brew install nnuninstaller
 ```
 
 ## Usage
@@ -140,30 +130,6 @@ Built with Swift Package Manager using clean architecture principles:
 - [swift-argument-parser](https://github.com/apple/swift-argument-parser) - Command-line interface
 - [NnShellKit](https://github.com/nikolainobadi/NnShellKit) - Shell command execution
 - [SwiftPicker](https://github.com/nikolainobadi/SwiftPicker) - Interactive selection interface
-
-## Development
-
-### Building
-
-```bash
-swift build
-```
-
-### Testing
-
-```bash
-swift test
-```
-
-### Running Specific Tests
-
-```bash
-# Run tests for a specific component
-swift test --filter UninstallAppTests
-
-# Run a single test
-swift test --filter UninstallAppTests.dry_run_executes_without_deleting
-```
 
 ## License
 
