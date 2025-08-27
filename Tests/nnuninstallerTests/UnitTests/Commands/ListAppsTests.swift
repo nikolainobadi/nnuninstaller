@@ -10,7 +10,7 @@ import NnShellKit
 import ArgumentParser
 @testable import nnuninstaller
 
-@Suite(.serialized)
+@MainActor
 struct ListAppsTests {
     @Test("successfully executes with valid apps and calls expected dependencies")
     func run_withValidApps_callsExpectedDependencies() throws {
