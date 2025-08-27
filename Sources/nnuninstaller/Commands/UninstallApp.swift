@@ -67,7 +67,7 @@ struct UninstallApp: ParsableCommand {
                 action = .removeAll
                 print("\n⚠️  Force flag enabled - removing all items without confirmation")
             } else {
-                action = try getUserChoice(picker: picker)
+                action = try getUserChoice(picker: picker, fileCount: associatedFiles.count)
             }
             
             // Step 5: Execute based on choice
@@ -128,14 +128,20 @@ private extension UninstallApp {
         }
     }
     
-    func getUserChoice(picker: any CommandLinePicker) throws -> UninstallAction {
+    func getUserChoice(picker: any CommandLinePicker, fileCount: Int) throws -> UninstallAction {
         let options = [
             "Remove all items",
             "Select which items to remove",
             "Cancel"
         ]
         
-        let selected = try picker.requiredSingleSelection("Choose an action:", items: options)
+        if fileCount == 1 {
+            try picker.requiredPermission("Only 1 file found. Would you like to move it to the trash?")
+            
+            return .removeAll
+        }
+        
+        let selected = try picker.requiredSingleSelection("\(fileCount) files found. What would you like to do?", items: options)
         
         switch selected {
         case "Remove all items":
@@ -268,3 +274,8 @@ private extension UninstallApp {
     }
 }
 
+extension String {
+    func pluralized(for count: Int) -> String {
+        count == 1 ? self : self + "s"
+    }
+}

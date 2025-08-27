@@ -28,7 +28,7 @@ struct UninstallAppTests {
             ],
             selectionResponses: [
                 "Select an application to uninstall:": 0,  // Select TestApp
-                "Choose an action:": 0  // Select "Remove all items"
+                "0 files found. What would you like to do?": 0  // Select "Remove all items"
             ]
         )
         let context = MockContext(shell: shell, picker: picker, fileSystem: fileSystem)
@@ -38,7 +38,7 @@ struct UninstallAppTests {
         
         // Verify picker interactions
         #expect(picker.selections.contains("Select an application to uninstall:"))
-        #expect(picker.selections.contains("Choose an action:"))
+        #expect(picker.selections.contains("0 files found. What would you like to do?"))
         #expect(picker.permissions.contains("⚠️  Confirmation: Move all 1 items to trash?"))
     }
     
@@ -69,7 +69,7 @@ struct UninstallAppTests {
         let picker = MockPicker(
             selectionResponses: [
                 "Select an application to uninstall:": 0,
-                "Choose an action:": 2  // Select "Cancel"
+                "0 files found. What would you like to do?": 2  // Select "Cancel"
             ]
         )
         let context = MockContext(shell: shell, picker: picker, fileSystem: fileSystem)
@@ -78,7 +78,7 @@ struct UninstallAppTests {
         
         // Should have selected app and action
         #expect(picker.selections.contains("Select an application to uninstall:"))
-        #expect(picker.selections.contains("Choose an action:"))
+        #expect(picker.selections.contains("0 files found. What would you like to do?"))
         // Should not have asked for confirmation
         #expect(picker.permissions.isEmpty)
     }
@@ -98,7 +98,7 @@ struct UninstallAppTests {
             ],
             selectionResponses: [
                 "Select an application to uninstall:": 0,
-                "Choose an action:": 1,  // Select "Select which items to remove"
+                "0 files found. What would you like to do?": 1,  // Select "Select which items to remove"
                 "Select items to remove:": 0  // Select first item in multi-selection
             ]
         )
@@ -108,7 +108,7 @@ struct UninstallAppTests {
         
         // Verify all selections were made
         #expect(picker.selections.contains("Select an application to uninstall:"))
-        #expect(picker.selections.contains("Choose an action:"))
+        #expect(picker.selections.contains("0 files found. What would you like to do?"))
         #expect(picker.selections.contains("Select items to remove:"))
     }
     
