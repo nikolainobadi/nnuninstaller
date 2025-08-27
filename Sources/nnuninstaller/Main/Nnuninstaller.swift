@@ -14,7 +14,8 @@ struct Nnuninstaller: ParsableCommand {
         version: "0.1.0",
         subcommands: [
             ListApps.self,
-            CheckAppFiles.self
+            CheckAppFiles.self,
+            UninstallApp.self
         ]
     )
     

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftPicker
 
 struct AppFileChecker {
     private let fileSystem: any FileSystem
@@ -89,4 +90,20 @@ struct AppFileLocation {
     let name: String
     let location: String
     let appName: String
+    var size: Int64?
+    
+    var formattedSize: String {
+        guard let size = size else { return "" }
+        let calculator = FileSizeCalculator()
+        return calculator.formatSize(size)
+    }
+}
+
+
+// MARK: - DisplayablePickerItem
+extension AppFileLocation: DisplayablePickerItem {
+    var displayName: String {
+        let sizeStr = formattedSize.isEmpty ? "" : " (\(formattedSize))"
+        return "\(name)\(sizeStr) - \(location)"
+    }
 }

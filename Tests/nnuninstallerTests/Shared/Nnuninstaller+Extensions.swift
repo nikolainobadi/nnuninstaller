@@ -140,6 +140,7 @@ final class MockPicker: CommandLinePicker {
     }
     
     func multiSelection<Item: DisplayablePickerItem>(title: any PickerPrompt, items: [Item]) -> [Item] {
+        selections.append(title.title)
         guard let index = selectionResponses[title.title], 
               index < items.count else {
             return []

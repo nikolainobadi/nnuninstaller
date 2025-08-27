@@ -18,6 +18,7 @@ swift run nnuninstaller <command>
 # Build and run specific commands
 swift run nnuninstaller list-apps
 swift run nnuninstaller check-app-files
+swift run nnuninstaller uninstall --dry-run  # Safe testing mode
 ```
 
 ### Running Single Tests
@@ -43,13 +44,18 @@ This is a Swift Package Manager CLI tool for uninstalling non-Apple applications
 - `makeFileSystem()` - Returns `DefaultFileSystem` for file operations
 
 **Commands**: Located in `Sources/nnuninstaller/Commands/`
+- `ListApps` - Lists non-Apple applications
+- `CheckAppFiles` - Interactive app selection and file discovery
+- `UninstallApp` - Three-option uninstall flow (all/select/cancel) with dry-run support
 - Each command implements `ParsableCommand` from ArgumentParser
 - Commands use dependency injection through the main `Nnuninstaller` factory methods
 
 **Core Logic**: 
 - `AppLister` - Scans `/Applications` directory and identifies non-Apple signed apps using `codesign` shell commands
-- `AppInfo` - Model representing application metadata (path, full name, short name), implements `DisplayablePickerItem`
+- `AppInfo` - Model representing application metadata, handles underscore-separated names (e.g., CleanMyMac_5_MAS.app → CleanMyMac)
 - `AppFileChecker` - Searches common macOS locations for files associated with applications
+- `AppUninstaller` - Handles safe deletion to trash with dry-run support and logging
+- `FileSizeCalculator` - Calculates and formats file/directory sizes
 - `FileSystem` protocol - Abstraction for file system operations (testable)
 
 ### Dependencies
