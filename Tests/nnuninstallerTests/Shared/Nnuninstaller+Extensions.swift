@@ -146,4 +146,5 @@ final class MockPicker: CommandLinePicker {
         }
         return [items[index]]
     }
+    
 }

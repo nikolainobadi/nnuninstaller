@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftPicker
 
 struct AppInfo {
     let fullName: String
@@ -19,7 +20,16 @@ struct AppInfo {
             self.shortName = ""
         } else {
             self.fullName = URL(fileURLWithPath: path).lastPathComponent
-            self.shortName = fullName.hasSuffix(".app") ? String(fullName.dropLast(4)) : fullName
+            let baseName = fullName.hasSuffix(".app") ? String(fullName.dropLast(4)) : fullName
+            self.shortName = baseName.components(separatedBy: "_").first ?? baseName
         }
+    }
+}
+
+
+// MARK: - DisplayablePickerItem
+extension AppInfo: DisplayablePickerItem {
+    var displayName: String {
+        return shortName
     }
 }
