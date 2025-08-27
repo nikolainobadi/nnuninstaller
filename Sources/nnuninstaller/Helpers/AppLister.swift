@@ -46,7 +46,7 @@ private extension AppLister {
     func isAppleSigned(appPath: String) -> Bool {
         do {
             let result = try shell.bash("codesign -dv \"\(appPath)\" 2>&1")
-            return result.contains("Apple")
+            return result.lowercased().contains("apple")
         } catch {
             return false
         }

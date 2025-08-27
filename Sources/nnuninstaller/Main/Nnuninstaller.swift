@@ -28,6 +28,10 @@ extension Nnuninstaller {
     static func makePicker() -> any CommandLinePicker {
         return context.makePicker()
     }
+    
+    static func makeFileSystem() -> any FileSystem {
+        return context.makeFileSystem()
+    }
 }
 
 import NnShellKit
@@ -36,6 +40,7 @@ import SwiftPicker
 protocol NnContext {
     func makeShell() -> any Shell
     func makePicker() -> any CommandLinePicker
+    func makeFileSystem() -> any FileSystem
 }
 
 struct DefaultContext: NnContext {
@@ -45,5 +50,9 @@ struct DefaultContext: NnContext {
     
     func makePicker() -> any CommandLinePicker {
         return InteractivePicker()
+    }
+    
+    func makeFileSystem() -> any FileSystem {
+        return DefaultFileSystem()
     }
 }

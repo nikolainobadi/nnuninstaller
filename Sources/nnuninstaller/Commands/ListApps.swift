@@ -17,7 +17,8 @@ struct ListApps: ParsableCommand {
     
     func run() throws {
         let shell = Nnuninstaller.makeShell()
-        let appLister = AppLister(shell: shell)
+        let fileSystem = Nnuninstaller.makeFileSystem()
+        let appLister = AppLister(shell: shell, fileSystem: fileSystem)
         
         do {
             let apps = try appLister.listNonAppleApps()

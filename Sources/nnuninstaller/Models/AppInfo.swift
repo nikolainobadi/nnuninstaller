@@ -14,7 +14,12 @@ struct AppInfo {
     
     init(path: String) {
         self.path = path
-        self.fullName = URL(fileURLWithPath: path).lastPathComponent
-        self.shortName = fullName.hasSuffix(".app") ? String(fullName.dropLast(4)) : fullName
+        if path.isEmpty {
+            self.fullName = ""
+            self.shortName = ""
+        } else {
+            self.fullName = URL(fileURLWithPath: path).lastPathComponent
+            self.shortName = fullName.hasSuffix(".app") ? String(fullName.dropLast(4)) : fullName
+        }
     }
 }
