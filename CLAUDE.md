@@ -58,6 +58,12 @@ This is a Swift Package Manager CLI tool for uninstalling non-Apple applications
 - `FileSizeCalculator` - Calculates and formats file/directory sizes
 - `FileSystem` protocol - Abstraction for file system operations (testable)
 
+**Reusable Services** (Located in `Sources/nnuninstaller/Services/`):
+- `UninstallService` - Orchestrates the complete uninstall workflow (app selection, user interaction, execution)
+- `UninstallDisplayFormatter` - Handles all UI display logic for found items and results
+- `UninstallUserInteractionHandler` - Manages user choice selection and confirmation prompts
+- These services promote code reusability and separation of concerns, making the UninstallApp command much cleaner
+
 ### Dependencies
 - **NnShellKit**: Custom shell command execution wrapper
 - **SwiftPicker**: Interactive command-line selection interface  
