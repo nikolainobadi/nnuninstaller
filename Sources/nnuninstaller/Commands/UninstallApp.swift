@@ -141,7 +141,7 @@ private extension UninstallApp {
             return .removeAll
         }
         
-        let selected = try picker.requiredSingleSelection("\(fileCount) files found. What would you like to do?", items: options)
+        let selected = try picker.requiredSingleSelection("\(fileCount) additional files found. What would you like to do?", items: options)
         
         switch selected {
         case "Remove all items":

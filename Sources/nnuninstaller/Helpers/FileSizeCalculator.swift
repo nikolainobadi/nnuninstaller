@@ -51,7 +51,7 @@ private extension FileSizeCalculator {
         guard let enumerator = fileManager.enumerator(
             at: URL(fileURLWithPath: path),
             includingPropertiesForKeys: [.fileSizeKey],
-            options: [.skipsHiddenFiles, .skipsPackageDescendants]
+            options: [.skipsHiddenFiles]
         ) else {
             return 0
         }
