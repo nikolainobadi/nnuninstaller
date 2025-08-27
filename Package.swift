@@ -9,7 +9,7 @@ let package = Package(
         .macOS(.v14),
     ],
     products: [
-        .library(
+        .executable(
             name: "nnuninstaller",
             targets: ["nnuninstaller"]),
     ],
@@ -19,7 +19,7 @@ let package = Package(
         .package(url: "https://github.com/apple/swift-argument-parser.git", from: "1.5.0"),
     ],
     targets: [
-        .target(
+        .executableTarget(
             name: "nnuninstaller",
             dependencies: [
                 "NnShellKit",
