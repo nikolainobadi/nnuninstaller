@@ -13,7 +13,7 @@ struct Nnuninstaller: ParsableCommand {
         abstract: "",
         version: "0.1.0",
         subcommands: [
-            
+            ListApps.self
         ]
     )
     
