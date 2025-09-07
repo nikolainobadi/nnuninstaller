@@ -63,10 +63,13 @@ nnuninstaller uninstall --log
    - `~/Library/Logs`
    - `~/Library/Containers`
    - `~/Library/Cookies`
-3. **User Choice** - Presents three options:
-   - Remove all items
-   - Select specific items to remove
-   - Cancel operation
+3. **Smart User Interaction** - Context-aware prompts based on file count:
+   - **0 files found**: "No additional files found. Would you like to uninstall the app?"
+   - **1 file found**: "Only 1 additional file found. Would you like to include this file as well?"
+   - **Multiple files found**: Choose from three options:
+     - Remove all items
+     - Select specific items to remove  
+     - Cancel operation
 4. **Safe Deletion** - Moves items to Trash (recoverable) rather than permanent deletion
 
 ## Safety Features
@@ -110,20 +113,41 @@ Select an application: Chrome
 # Actual uninstall
 $ nnuninstaller uninstall
 Select an application: Chrome
-Remove all items, select specific items, or cancel? Remove all items
+3 additional files found. What would you like to do?
+> Remove all items
+  Select which items to remove
+  Cancel
 ✅ Successfully removed 8 items (~380 MB)
 Items have been moved to trash and can be restored if needed.
 ```
+
+## Recent Improvements
+
+- **Enhanced User Experience**: Context-aware prompts that adapt based on the number of associated files found
+- **Improved Service Architecture**: Extracted reusable services (`UninstallService`, `UninstallDisplayFormatter`, `UninstallUserInteractionHandler`) for better separation of concerns
+- **Better Error Handling**: Graceful handling of user cancellations and edge cases
+- **Comprehensive Testing**: Full test coverage with mock objects for reliable testing
 
 ## Architecture
 
 Built with Swift Package Manager using clean architecture principles:
 
-- **Commands** - CLI interface using Swift ArgumentParser
-- **Services** - Reusable business logic components
-- **Helpers** - Utilities for file operations and system interaction
-- **Models** - Data structures for applications and file information
-- **Protocols** - Abstractions for dependency injection and testing
+### Core Structure
+- **Commands** (`Sources/nnuninstaller/Commands/`) - CLI interface using Swift ArgumentParser
+  - `ListApps` - Lists non-Apple applications  
+  - `CheckAppFiles` - Interactive app selection and file discovery
+  - `UninstallApp` - Complete uninstall workflow with context-aware prompts
+- **Services** (`Sources/nnuninstaller/Services/`) - Reusable business logic components
+  - `UninstallService` - Orchestrates the complete uninstall workflow
+  - `UninstallDisplayFormatter` - Handles all UI display logic
+  - `UninstallUserInteractionHandler` - Manages context-aware user prompts
+- **Helpers** (`Sources/nnuninstaller/Helpers/`) - Utilities for file operations and system interaction
+  - `AppLister` - App discovery and Apple signature filtering
+  - `AppFileChecker` - Associated file discovery in standard macOS locations
+  - `AppUninstaller` - Safe trash-based deletion with logging
+  - `FileSizeCalculator` - Accurate size calculations and formatting
+- **Models** (`Sources/nnuninstaller/Models/`) - Data structures for applications and file information
+- **Protocols** (`Sources/nnuninstaller/Protocols/`) - Abstractions for dependency injection and testing
 
 ## Dependencies
 
