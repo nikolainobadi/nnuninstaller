@@ -11,7 +11,7 @@ import ArgumentParser
 struct Nnuninstaller: ParsableCommand {
     static let configuration = CommandConfiguration(
         abstract: "",
-        version: "v0.1.1",
+        version: "v0.1.2",
         subcommands: [
             ListApps.self,
             CheckAppFiles.self,
