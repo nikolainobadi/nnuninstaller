@@ -12,7 +12,7 @@ import SwiftPicker
 
 struct CheckAppFiles: ParsableCommand {
     static let configuration = CommandConfiguration(
-        commandName: "check-app-files",
+        commandName: "check-apps",
         abstract: "Select an app and check for associated files and folders"
     )
     

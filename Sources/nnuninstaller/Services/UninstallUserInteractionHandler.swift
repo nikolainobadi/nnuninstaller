@@ -14,16 +14,21 @@ protocol UninstallUserInteractionHandlerProtocol {
 
 struct UninstallUserInteractionHandler: UninstallUserInteractionHandlerProtocol {
     func getUserChoice(picker: any CommandLinePicker, fileCount: Int) throws -> UninstallAction {
+        if fileCount == 0 {
+            let shouldProceed = picker.getPermission(prompt: "No additional files found. Would you like to uninstall the app?")
+            return shouldProceed ? .removeAll : .cancel
+        }
+        
+        if fileCount == 1 {
+            let shouldProceed = picker.getPermission(prompt: "Only 1 additional file found. Would you like to include this file as well?")
+            return shouldProceed ? .removeAll : .cancel
+        }
+        
         let options = [
             "Remove all items",
             "Select which items to remove",
             "Cancel"
         ]
-        
-        if fileCount == 1 {
-            try picker.requiredPermission("Only 1 file found. Would you like to move it to the trash?")
-            return .removeAll
-        }
         
         let selected = try picker.requiredSingleSelection("\(fileCount) additional files found. What would you like to do?", items: options)
         

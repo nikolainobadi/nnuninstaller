@@ -117,6 +117,6 @@ struct CheckAppFilesTests {
 // MARK: - Run
 private extension CheckAppFilesTests {
     func runCommand(context: MockContext) throws {
-        try Nnuninstaller.testRun(context: context, args: ["check-app-files"])
+        try Nnuninstaller.testRun(context: context, args: ["check-apps"])
     }
 }
